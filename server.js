@@ -5,7 +5,7 @@ const fs = require("fs");
 const path = require('path');
 
 // for the communication with the client 
-const cors = require('cors'); 
+//const cors = require('cors'); 
 const fileUpload = require('express-fileupload');
 
 
@@ -13,7 +13,7 @@ const fileUpload = require('express-fileupload');
 // setting up my app
 const app = express();
 
-app.use(cors());
+//app.use(cors());
 app.use(fileUpload());
 // servng static files 
 app.use(express.static("public"));
@@ -36,6 +36,20 @@ app.get('/index', function (req, res) {
     if (err) throw err;
     console.log('Replaced!');*/
     res.sendFile(path.join(__dirname+'/index.html'))
+  //});
+})
+app.get('/reciever', function (req, res) {
+/*  fs.writeFile('index.html', 'This is my text', function (err) {
+    if (err) throw err;
+    console.log('Replaced!');*/
+    res.sendFile(path.join(__dirname+'/reciever.html'))
+  //});
+})
+app.get('/launcher', function (req, res) {
+/*  fs.writeFile('index.html', 'This is my text', function (err) {
+    if (err) throw err;
+    console.log('Replaced!');*/
+    res.sendFile(path.join(__dirname+'/launcher.html'))
   //});
 })
 
