@@ -7,8 +7,34 @@
 
 </head>
 <body>
- <p>this my text from index </p>
+	<h1>	 lah ystar </h1>
+	<div>	
+	<video id = "Screen" autoplay>	</video>
+
+	</div>
+</div>
+    <video></video>>
 </body>	
-
-
+<script>
+let video = document.querySelector('#Screen');
+const constraints = {
+    audio: true,
+    video: {
+        width:500,
+        height: 500
+    }
+};
+navigator.mediaDevices.getDisplayMedia(constraints).then((captureStream) => {
+	video.srcObject = captureStream; 
+}); 
+console.log(video); 
+window.constraints = constraints; 
+/*navigator.mediaDevices.getUserMedia(constraints).
+        then((stream) => {
+            video.muted = true;
+            window.stream = stream; 
+            video.srcObject = stream;
+            console.log(video.srcObject				);
+});*/
+</script>
 </html>

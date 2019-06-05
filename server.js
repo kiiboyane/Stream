@@ -3,6 +3,8 @@ const express = require('express');
 const bodyParser = require("body-parser"); 
 const fs = require("fs");
 const path = require('path');
+var proxy = require('html2canvas-proxy');
+
 
 // for the communication with the client 
 //const cors = require('cors'); 
@@ -20,9 +22,11 @@ app.use(express.static("public"));
 
 //first middleware to parse the req to json 
 app.use(bodyParser.json()); 
+//app.use('/', proxy());
 
 app.get('/', function(req, res) {
-       res.send("hello fellow men")
+    res.sendFile(path.join(__dirname+'/index.html'))
+
   })
 // the error handler middleware
 app.use(function( err , req , res , next){
