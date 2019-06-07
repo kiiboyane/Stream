@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 //app.use('/', proxy());
 
 app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname+'/index.html'))
+    res.sendFile(path.join(__dirname+'/launcher.html'))
 
   })
 // the error handler middleware
