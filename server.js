@@ -34,31 +34,28 @@ app.use(function( err , req , res , next){
     res.status(422).send({message : err.message});
 });
 
+app.get('/', function(req, res){
+   res.redirect('/launcher');
+});
 
 app.get('/index', function (req, res) {
-/*  fs.writeFile('index.html', 'This is my text', function (err) {
-    if (err) throw err;
-    console.log('Replaced!');*/
+
     res.sendFile(path.join(__dirname+'/index.html'))
   //});
 })
 app.get('/reciever', function (req, res) {
-/*  fs.writeFile('index.html', 'This is my text', function (err) {
-    if (err) throw err;
-    console.log('Replaced!');*/
+
     res.sendFile(path.join(__dirname+'/reciever.html'))
   //});
 })
 app.get('/launcher', function (req, res) {
-/*  fs.writeFile('index.html', 'This is my text', function (err) {
-    if (err) throw err;
-    console.log('Replaced!');*/
+
     res.sendFile(path.join(__dirname+'/launcher.html'))
   //});
 })
 
 
-app.listen(process.env.port || 3001 , function (){
+app.listen(process.env.PORT || 3001 , function (){
   console.log("Hello")
 });  
 
