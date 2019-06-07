@@ -19,6 +19,7 @@
   "homepage": "https://github.com/kiiboyane/test#readme",
   "dependencies": {
     "express": "latest",
+    "express-fileupload": "latest",
     "fs": "0.0.1-security",
     "html2canvas": "^1.0.0-rc.3",
     "html2canvas-proxy": "^1.0.1",
