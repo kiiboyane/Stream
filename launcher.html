@@ -5,10 +5,11 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/0.3.16/peer.min.js"></script>
 	<link rel="stylesheet" href="style.css">
 </head>
-<body>
-<div id="connectiondiv">
+<body style = "background-color: #E8E8E8">
+<div id="connectiondiv" style = " display : none" >
 	<input id="destid" type="text" placeholder="Enter the Peer's ID ... "> <button id="connectbutton" onclick="go()">Connect</button>
 </div>
+<div id="switchdiv"><button class="connectbutton"  onclick="changeVideo()">Start Streaming</button> </div> 
 <div id="connecteddiv">
 	<video id="peervid"  align="center" autoplay muted></video>
 	<div id="conversationdiv">
@@ -18,5 +19,7 @@
 	<video id="destvid" autoplay muted></video>
 </div>  
 </body>
-<script src="launcher.js"></script>
+<script src="launcher.js">
+	
+</script>
 </html>

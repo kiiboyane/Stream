@@ -6,17 +6,19 @@
 	
 
 </head>
-<body>
+<body style = "background-color: #E8E8E8">
 	<h1>	 lah ystar </h1>
 	<div>	
-	<video id = "Screen" autoplay>	</video>
+	<video id = "Screen" autoplay muted>	</video>
+	<button id="connectbutton" onclick="changeVideo()">Start Streaming</button>
 
 	</div>
-</div>
-    <video></video>>
+
 </body>	
 <script>
 let video = document.querySelector('#Screen');
+let button = document.querySelector('#connectbutton');
+let shareScreen = false ; 
 const constraints = {
     audio: true,
     video: {
@@ -24,10 +26,24 @@ const constraints = {
         height: 500
     }
 };
-navigator.mediaDevices.getDisplayMedia(constraints).then((captureStream) => {
-	video.srcObject = captureStream; 
-}); 
-console.log(video); 
+window.constraints = constraints; 
+function changeVideo(){
+	if(shareScreen){
+	    navigator.mediaDevices.getDisplayMedia(constraints).then((captureStream) => {
+					video.srcObject = captureStream; 
+                    window.stream = captureStream; 
+                    button.innerHTML = "switch to camera"; 
+					shareScreen = false; 
+	    }); 
+	}else{
+		navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
+					video.srcObject = stream;
+                    window.stream = stream; 
+                    button.innerHTML = "Share the screen"; 
+					shareScreen = true; 
+	    });
+	}
+}
 window.constraints = constraints; 
 /*navigator.mediaDevices.getUserMedia(constraints).
         then((stream) => {

@@ -7,12 +7,21 @@ body {
 	  background-repeat: no-repeat;
 	  background-attachment: fixed;
 	  display: grid; 
-	  grid-template-rows: 10px 1fr 5px 8fr 10px;
+	  grid-template-rows: 10px 1fr 5px 1fr 5px 8fr 10px;
 }
 #connectiondiv{
 	display : grid; 
 	grid-row: 2/3;
-    grid-template-columns: 20px 2fr 10px 1fr 2fr 30px ; 
+  grid-template-columns: 20px 2fr 10px 1fr 2fr 30px ; 
+}
+
+.connectbutton{
+  
+}
+#switchdiv{
+  display : grid; 
+  justify-content: center;
+  grid-row: 3/4;
 }
 #connectiondiv1{
 	display: grid ;
@@ -26,7 +35,7 @@ body {
 }
 #connecteddiv{
   display: grid; 
-  grid-row: 4/5;
+  grid-row: 5/6;
   grid-template-columns: 20px 1fr 10px 1fr 10px 1fr 20px ; 
   grid-template-rows: 8px 1fr 8px;
   grid-template-rows: 1fr;
@@ -43,9 +52,12 @@ input{
 	display: grid ; 
 	grid-template-columns: 4px 3fr 4px 1fr 4px; 
 }
-video{
+.videoCamera{
   transform: scale(-1, 1);            /*For Firefox (& IE) */
-  -webkit-transform: scale(-1, 1); 
+  /-webkit-transform: scale(-1, 1); 
+}
+
+.videoCapture{
 }
 #inputmessage{
 	grid-column: 2/3;

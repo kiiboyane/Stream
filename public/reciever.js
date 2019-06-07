@@ -12,10 +12,7 @@ const constraints = {
         height:500
     }
 };
-
-
-
-
+let shareScreen = true; 
 function notEmpty(string) {
     return !(string.length === 0 || !string.trim());
 }
@@ -144,20 +141,21 @@ function initialize() {
     });
 };
 initialize();
-peer.on('open', function() {
-    peer.on('call', function(call) {
-        navigator.mediaDevices.getUserMedia(constraints).
+navigator.mediaDevices.getUserMedia(constraints).
         then((stream) => {
-            destid = call.peer;
             video1.muted = true;
             video1.srcObject = stream;
-            call.answer(stream);
+            window.stream = stream ; 
+});
+peer.on('open', function() {
+    peer.on('call', function(call) {
+            destid = call.peer;
+            call.answer(window.stream);
             call.on('stream', function(remoteStream) {
                 video.srcObject = remoteStream;
                 idtext.style.display = "none";
                 connectbutton.style.display = "block";
-                connectbutton.style.backgroundColor = "#0D2C3E";
-            });
+                connectbutton.style.backgroundColor = "#0D2C3E";        
         });
     });
     peer.on('connection', function(c) {
@@ -167,3 +165,31 @@ peer.on('open', function() {
         });
     });
 });
+let button = document.querySelector('.connectbutton');
+function changeVideo(){
+    if(shareScreen){
+        navigator.mediaDevices.getDisplayMedia(constraints).then((captureStream) => {
+                    video1.srcObject = captureStream; 
+                    window.stream = captureStream; 
+                    button.innerHTML = "switch to camera"; 
+                    video1.id = "videoCapture";
+                    shareScreen = false; 
+                    call = peer.call(destid.value, window.stream);
+                    call.on('stream', function(remoteStream) {
+                        video.srcObject = remoteStream;
+                    });
+        }); 
+    }else{
+        navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
+                    video1.srcObject = stream;
+                    window.stream = stream; 
+                    button.innerHTML = "Share the screen"; 
+                    video1.id = "";
+                    shareScreen = true; 
+                    call = peer.call(destid.value, window.stream);
+                    call.on('stream', function(remoteStream) {
+                        video.srcObject = remoteStream;
+                    });
+        }); 
+    }
+}

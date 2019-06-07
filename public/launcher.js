@@ -16,7 +16,7 @@ const constraints = {
         height: 500
     }
 };
-
+var connected = false ; 
 function hasGetUserMedia() {
     return !!(navigator.mediaDevices &&
         navigator.mediaDevices.getUserMedia);
@@ -144,20 +144,51 @@ function sendandrecieve() {
 }
 initialize();
 
-function go() {
-    navigator.mediaDevices.getUserMedia(constraints).
+/*navigator.mediaDevices.getUserMedia(constraints).
     then((stream) => {
         //so that i dont hear my voice repeated   :P
         video1.muted = true;
         video1.srcObject = stream;
-            console.log(video1);
-
+        window.stream = stream ;
+});*/  
+let button = document.querySelector('.connectbutton');
+let shareScreen = false ;
+window.constraints = constraints; 
+function changeVideo(){
+    document.querySelector('#connectiondiv').style.display = "grid"; 
+    if(shareScreen){
+        navigator.mediaDevices.getDisplayMedia(constraints).then((captureStream) => {
+                    video1.srcObject = captureStream; 
+                    window.stream = captureStream; 
+                    button.innerHTML = "switch to camera"; 
+                    video1.id = "videoCapture";
+                    shareScreen = false; 
+                    call = peer.call(destid.value, window.stream);
+                    call.on('stream', function(remoteStream) {
+                        video.srcObject = remoteStream;
+                    });
+        }); 
+    }else{
+        navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
+                    video1.srcObject = stream;
+                    window.stream = stream; 
+                    button.innerHTML = "Share the screen"; 
+                    video1.id = "";
+                    shareScreen = true; 
+                    call = peer.call(destid.value, window.stream);
+                    call.on('stream', function(remoteStream) {
+                        video.srcObject = remoteStream;
+                    });
+        }); 
+    }
+}
+function go() {
         connecteddiv.style.display = "grid";
         destid.style.display = "none";
         connectbutton.innerHTML = "Connected";
         connectbutton.disabled = "disabled";
         connectbutton.style.backgroundColor = "#0D2C3E";
-        var call = peer.call(destid.value, stream);
+        var call = peer.call(destid.value, window.stream);
         call.on('stream', function(remoteStream) {
             video.srcObject = remoteStream;
         });
@@ -165,5 +196,5 @@ function go() {
         conn.on('open', function() {
             sendandrecieve();
         });
-    });
+
 }
