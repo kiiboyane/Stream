@@ -3,11 +3,14 @@ html, body {
     height: 100%;
 }
 body {
-	  background-image: url("img/background.jpg");
+  /*
 	  background-repeat: no-repeat;
-	  background-attachment: fixed;
+	  background-attachment: fixed;*/
 	  display: grid; 
 	  grid-template-rows: 10px 1fr 5px 1fr 5px 8fr 10px;
+    color : teal ;
+    padding : 20% ; 
+    font-family:  helvatica ; 
 }
 #connectiondiv{
 	display : grid; 

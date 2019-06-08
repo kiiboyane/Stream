@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>index </title>
+	<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+	<link rel="stylesheet" href="style.css">
+
+
+</head>
+<body style = "background-color: #E8E8E8">
+	<div>	
+	<video id= "Screen"  class="videoCamera" autoplay muted>	</video>
+	<button id="connectbutton" onclick="changeVideo()">Start Streaming</button>
+
+	</div>
+
+</body>	
+<script>
+let video = document.querySelector('#Screen');
+let button = document.querySelector('#connectbutton');
+let shareScreen = false ; 
+const constraints = {
+    audio: true,
+    video: {
+        width:500,
+        height: 500
+    }
+};
+window.constraints = constraints; 
+function changeVideo(){
+	if(shareScreen){
+	    navigator.mediaDevices.getDisplayMedia(constraints).then((captureStream) => {
+					video.srcObject = captureStream; 
+					video.className = "videoCapture"; 
+                    window.stream = captureStream; 
+                    button.innerHTML = "switch to camera"; 
+					shareScreen = false; 
+	    }); 
+	}else{
+		navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
+					video.srcObject = stream;
+					video.className = "videoCamera"; 
+                    window.stream = stream; 
+                    button.innerHTML = "Share the screen"; 
+					shareScreen = true; 
+	    });
+	}
+}
+window.constraints = constraints; 
+/*navigator.mediaDevices.getUserMedia(constraints).
+        then((stream) => {
+            video.muted = true;
+            window.stream = stream; 
+            video.srcObject = stream;
+            console.log(video.srcObject				);
+});*/
+</script>
+</html>

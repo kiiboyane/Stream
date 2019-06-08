@@ -26,54 +26,38 @@ app.use(bodyParser.json());
 //app.use('/', proxy());
 
 app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname+'/launcher.html'))
-
-  })
+    res.sendFile(path.join(__dirname+'/index.html'))
+});
 // the error handler middleware
 app.use(function( err , req , res , next){
   // console.log(err.message.errors) ; 
     res.status(422).send({message : err.message});
 });
-
 app.get('/', function(req, res){
    res.redirect('/launcher');
 });
-
 app.get('/index', function (req, res) {
-
     res.sendFile(path.join(__dirname+'/index.html'))
-  //});
-})
+});
 app.get('/reciever', function (req, res) {
-
     res.sendFile(path.join(__dirname+'/reciever.html'))
-  //});
-})
+});
 app.get('/launcher', function (req, res) {
-
     res.sendFile(path.join(__dirname+'/launcher.html'))
-  //});
-})
-
+});
+app.get('/test', function (req, res) {
+    res.sendFile(path.join(__dirname+'/test.html'))
+});
+app.post('/connectIndex', function (req, res) {
+    console.log(req.body); 
+   res.redirect('/test');
+   
+});
 
 let server = app.listen(process.env.PORT || 3001 , function (){
   console.log("Hello")
 });  
-var options = {
-    debug: true
-}
- 
-var peerserver = ExpressPeerServer(server, options);
- 
-app.use('/api', peerserver);
 
-
-
-
-
-peerserver.on('connection', function(id) { 
-   console.log("I got connected") ;
- });
 
 
 

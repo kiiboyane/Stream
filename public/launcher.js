@@ -162,7 +162,7 @@ function changeVideo(){
                     video1.srcObject = captureStream; 
                     window.stream = captureStream; 
                     button.innerHTML = "switch to camera"; 
-                    video1.id = "videoCapture";
+                    video1.className = "videoCapture";
                     shareScreen = false; 
                     initialize(); 
                     call = peer.call(destid.value, window.stream);
@@ -175,7 +175,7 @@ function changeVideo(){
                     video1.srcObject = stream;
                     window.stream = stream; 
                     button.innerHTML = "Share the screen"; 
-                    video1.id = "";
+                    video1.className = "videoCamera";
                     shareScreen = true; 
                     initialize(); 
                     call = peer.call(destid.value, window.stream);

@@ -3,54 +3,78 @@
 <head>
 	<title>index </title>
 	<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-	
+	<link rel="stylesheet" href="style.css">
+    <style >
+    	p{
+    		font-size: 20px;
+    		
+    	}
+    	.tag:hover{
+    		color : red ;
+    		 text-decoration:  line-through;
+    	}
+       .tag{
+    		font-size : 20px;
+    		list-style: none;
+  			margin: 0;
+  			overflow: hidden; 
+  			padding: 0;
+
+    	}
+    	.delete{
+    		color : red ;
+    	}
+    </style>
 
 </head>
 <body style = "background-color: #E8E8E8">
-	<h1>	 lah ystar </h1>
-	<div>	
-	<video id = "Screen" autoplay muted>	</video>
-	<button id="connectbutton" onclick="changeVideo()">Start Streaming</button>
-
-	</div>
+<div>
+ <h1> Hey ! </h1> 
+ <p>Basically this is a Peer to Peer connection video/text chat using webrtc and PeerJs library </p>
+ <p><b>PS : </b>  You can also share your Screen</p>
+ <button id = "connectwithTags" >	Connect using Tags  </button><br/>
+ <div id ="tagsdiv" style = "display: none">
+ 	<input type="text" name="tags" id ="taginput"> <button id="tagbutton" >Add Tag</button><br/>
+ 	<span style = "color : black "><small>	click over the tag to delete it !</small></span><br/><br/>
+ 	<div id = "tags">
+ 	</div>
+ </div>
+ <button id="connectIndex" >Connect</button>
+</div>
 
 </body>	
 <script>
-let video = document.querySelector('#Screen');
-let button = document.querySelector('#connectbutton');
-let shareScreen = false ; 
-const constraints = {
-    audio: true,
-    video: {
-        width:500,
-        height: 500
-    }
-};
-window.constraints = constraints; 
-function changeVideo(){
-	if(shareScreen){
-	    navigator.mediaDevices.getDisplayMedia(constraints).then((captureStream) => {
-					video.srcObject = captureStream; 
-                    window.stream = captureStream; 
-                    button.innerHTML = "switch to camera"; 
-					shareScreen = false; 
-	    }); 
-	}else{
-		navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
-					video.srcObject = stream;
-                    window.stream = stream; 
-                    button.innerHTML = "Share the screen"; 
-					shareScreen = true; 
-	    });
-	}
+let connectwithTags = document.querySelector('#connectwithTags');
+let tagbutton = document.querySelector('#tagbutton');
+let connectIndex = document.querySelector('#connectIndex');
+let tagsdiv = document.querySelector('#tagsdiv');
+let taginput = document.querySelector('#taginput');
+function notEmpty(string) {
+    return !(string.length === 0 || !string.trim());
 }
-window.constraints = constraints; 
-/*navigator.mediaDevices.getUserMedia(constraints).
-        then((stream) => {
-            video.muted = true;
-            window.stream = stream; 
-            video.srcObject = stream;
-            console.log(video.srcObject				);
-});*/
+connectwithTags.addEventListener('click' , ()=>{
+       tagsdiv.style.display = "block"; 
+       connectwithTags.style.display = "none"; 
+});
+tagbutton.addEventListener('click' , ()=>{
+	   let text = taginput.value; 
+       if(notEmpty(text))tags.innerHTML += '<span class="tag" onclick="deleteThis(this)"> '+text+'</span>' ; 
+	   taginput.value = "" ;
+});
+function deleteThis(element){
+	 element.remove(); 
+}
+connectIndex.addEventListener('click', () =>{
+	let tags = document.getElementsByClassName('tag') ;
+	let data = [] ; 
+	for (var i = tags.length - 1; i >= 0; i--) {
+		data.push (tags[i].innerHTML); 
+	}
+	data =  JSON.stringify(data);
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", "/connectIndex", true);
+	xhr.setRequestHeader('Content-Type', 'application/json');
+	xhr.send(data);
+});
 </script>
 </html>
