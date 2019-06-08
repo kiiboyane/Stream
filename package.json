@@ -2,10 +2,10 @@
   "name": "cinema-couples",
   "version": "1.0.0",
   "description": "well a streaming website to watch simultanously shit ",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -24,7 +24,8 @@
     "html2canvas": "^1.0.0-rc.3",
     "html2canvas-proxy": "^1.0.1",
     "nodemon": "^1.19.1",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "peer": "^0.2.10"
   },
   "engines": {
     "node": "10.15.1"

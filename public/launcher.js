@@ -9,6 +9,7 @@ var recievermsg = document.getElementById("recievermsg");
 var peerId = null;
 var conn = null;
 var peer = null;
+let call = null ; 
 const constraints = {
     audio: true,
     video: {
@@ -163,6 +164,7 @@ function changeVideo(){
                     button.innerHTML = "switch to camera"; 
                     video1.id = "videoCapture";
                     shareScreen = false; 
+                    initialize(); 
                     call = peer.call(destid.value, window.stream);
                     call.on('stream', function(remoteStream) {
                         video.srcObject = remoteStream;
@@ -175,6 +177,7 @@ function changeVideo(){
                     button.innerHTML = "Share the screen"; 
                     video1.id = "";
                     shareScreen = true; 
+                    initialize(); 
                     call = peer.call(destid.value, window.stream);
                     call.on('stream', function(remoteStream) {
                         video.srcObject = remoteStream;
@@ -188,7 +191,7 @@ function go() {
         connectbutton.innerHTML = "Connected";
         connectbutton.disabled = "disabled";
         connectbutton.style.backgroundColor = "#0D2C3E";
-        var call = peer.call(destid.value, window.stream);
+        call = peer.call(destid.value, window.stream);
         call.on('stream', function(remoteStream) {
             video.srcObject = remoteStream;
         });

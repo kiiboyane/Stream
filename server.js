@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const fs = require("fs");
 const path = require('path');
 var proxy = require('html2canvas-proxy');
+var ExpressPeerServer = require('peer').ExpressPeerServer;
 
 
 // for the communication with the client 
@@ -55,15 +56,24 @@ app.get('/launcher', function (req, res) {
 })
 
 
-app.listen(process.env.PORT || 3001 , function (){
+let server = app.listen(process.env.PORT || 3001 , function (){
   console.log("Hello")
 });  
+var options = {
+    debug: true
+}
+ 
+var peerserver = ExpressPeerServer(server, options);
+ 
+app.use('/api', peerserver);
 
 
 
 
 
-
+peerserver.on('connection', function(id) { 
+   console.log("I got connected") ;
+ });
 
 
 

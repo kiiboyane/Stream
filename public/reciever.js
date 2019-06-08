@@ -48,7 +48,8 @@ function sendandrecieve() {
 }
 
 function initialize() {
-    //peer = new Peer (); 
+    //peer = new Peer ();
+   // peer  = new Peer ("kiiiiiiiibo", {host: 'localhost', port: 3001, path: '/server'});  
     peer = new Peer({
          host:'peerjs-server.herokuapp.com', secure:true, port:443,
         config: {
