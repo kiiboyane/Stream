@@ -16,7 +16,7 @@
        .tag{
     		font-size : 20px;
     		list-style: none;
-  			margin: 0;
+  			margin: 3px;
   			overflow: hidden; 
   			padding: 0;
 
@@ -58,7 +58,7 @@ connectwithTags.addEventListener('click' , ()=>{
 });
 tagbutton.addEventListener('click' , ()=>{
 	   let text = taginput.value; 
-       if(notEmpty(text))tags.innerHTML += '<span class="tag" onclick="deleteThis(this)"> '+text+'</span>' ; 
+       if(notEmpty(text))tags.innerHTML += '<span class="tag" onclick="deleteThis(this)">'+text+'</span>' ; 
 	   taginput.value = "" ;
 });
 function deleteThis(element){
@@ -66,15 +66,37 @@ function deleteThis(element){
 }
 connectIndex.addEventListener('click', () =>{
 	let tags = document.getElementsByClassName('tag') ;
-	let data = [] ; 
+	let tagdata = [] ; 
 	for (var i = tags.length - 1; i >= 0; i--) {
-		data.push (tags[i].innerHTML); 
+		tagdata.push (tags[i].innerHTML); 
 	}
-	data =  JSON.stringify(data);
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", "/connectIndex", true);
-	xhr.setRequestHeader('Content-Type', 'application/json');
-	xhr.send(data);
+	let  data = {
+		 tags : tagdata
+	}
+	console.log(data);
+  console.log(JSON.stringify(data));
+  var xmlHttp = new XMLHttpRequest();
+  xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            console.log("/test/"+  xmlHttp.responseText );
+            var id  = xmlHttp.responseText; 
+            id = id.replace("\"" , "") ;
+            id = id.replace("\"" , "") ;    
+            window.location.href = "/connect/"+id ;
+            /*window.location.replace( "/test/"+  xmlHttp.responseText) ;*/
+        }
+  xmlHttp.open("POST", "/adduser", true); // true for asynchronous 
+  xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  xmlHttp.send(JSON.stringify(data));
+  //console.log(xmlHttp);
 });
+taginput.addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        tagbutton.click();
+        taginput.value = "";
+      }
+});
+
 </script>
 </html>

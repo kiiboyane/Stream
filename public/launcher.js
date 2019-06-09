@@ -1,3 +1,5 @@
+let button = document.querySelector('.connectbutton');
+let shareScreen = false ;
 const video = document.querySelector('#destvid');
 const video1 = document.querySelector('#peervid');
 var destid = document.getElementById("destid");
@@ -18,6 +20,7 @@ const constraints = {
     }
 };
 var connected = false ; 
+
 function hasGetUserMedia() {
     return !!(navigator.mediaDevices &&
         navigator.mediaDevices.getUserMedia);
@@ -115,6 +118,7 @@ function initialize() {
     peer.on('open', function(id) {
         peerId = id;
         console.log('ID: ' + id);
+       
     });
     peer.on('error', function(err) {
         if (err.type === 'unavailable-id') {
@@ -152,8 +156,6 @@ initialize();
         video1.srcObject = stream;
         window.stream = stream ;
 });*/  
-let button = document.querySelector('.connectbutton');
-let shareScreen = false ;
 window.constraints = constraints; 
 function changeVideo(){
     document.querySelector('#connectiondiv').style.display = "grid"; 
@@ -191,6 +193,7 @@ function go() {
         connectbutton.innerHTML = "Connected";
         connectbutton.disabled = "disabled";
         connectbutton.style.backgroundColor = "#0D2C3E";
+
         call = peer.call(destid.value, window.stream);
         call.on('stream', function(remoteStream) {
             video.srcObject = remoteStream;

@@ -3,8 +3,10 @@ const express = require('express');
 const bodyParser = require("body-parser"); 
 const fs = require("fs");
 const path = require('path');
-var proxy = require('html2canvas-proxy');
-var ExpressPeerServer = require('peer').ExpressPeerServer;
+const cors = require('cors'); 
+
+const mongoose  = require("mongoose"); 
+
 
 
 // for the communication with the client 
@@ -16,14 +18,25 @@ const fileUpload = require('express-fileupload');
 // setting up my app
 const app = express();
 
-//app.use(cors());
+
+// connecting to mongodb :)
+mongoose.set('useCreateIndex', true);
+mongoose.connect("mongodb://localhost/P2P", { useNewUrlParser: true }) ; 
+mongoose.Promise = global.Promise; 
+
+
+app.use(cors());
 app.use(fileUpload());
 // servng static files 
 app.use(express.static("public"));
 
 //first middleware to parse the req to json 
 app.use(bodyParser.json()); 
+app.use(bodyParser.urlencoded({ extended: true }));
 //app.use('/', proxy());
+
+app.use("/", require("./userRoute")); 
+
 
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname+'/index.html'))
@@ -45,15 +58,21 @@ app.get('/reciever', function (req, res) {
 app.get('/launcher', function (req, res) {
     res.sendFile(path.join(__dirname+'/launcher.html'))
 });
+app.get('/connect/:id', function (req, res) { 
+   //console.log(req.params.id); 
+   res.sendFile(path.join(__dirname+'/connect.html'))   
+   //res.send(req.params.id);
+});
 app.get('/test', function (req, res) {
     res.sendFile(path.join(__dirname+'/test.html'))
 });
-app.post('/connectIndex', function (req, res) {
-    console.log(req.body); 
-   res.redirect('/test');
-   
+app.get('/NOTFOUND', function (req, res) {
+    res.sendFile(path.join(__dirname+'/404.html'))
 });
-
+app.post('/connectIndex', function (req, res) {
+   console.log(req.body); 
+   res.redirect('/test');   
+});
 let server = app.listen(process.env.PORT || 3001 , function (){
   console.log("Hello")
 });  

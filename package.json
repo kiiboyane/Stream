@@ -18,14 +18,17 @@
   },
   "homepage": "https://github.com/kiiboyane/test#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "latest",
     "express-fileupload": "latest",
     "fs": "0.0.1-security",
     "html2canvas": "^1.0.0-rc.3",
     "html2canvas-proxy": "^1.0.1",
+    "mongoose": "^5.5.14",
     "nodemon": "^1.19.1",
     "path": "^0.12.7",
-    "peer": "^0.2.10"
+    "peer": "^0.2.10",
+    "xmlhttprequest": "^1.8.0"
   },
   "engines": {
     "node": "10.15.1"

@@ -171,26 +171,47 @@ function changeVideo(){
     if(shareScreen){
         navigator.mediaDevices.getDisplayMedia(constraints).then((captureStream) => {
                     video1.srcObject = captureStream; 
-                    window.stream = captureStream; 
+                    //window.stream = captureStream; 
                     button.innerHTML = "switch to camera"; 
                     video1.className = "videoCapture";
                     shareScreen = false; 
-                    call = peer.call(destid.value, window.stream);
+                    call = peer.call(destid, captureStream);
                     call.on('stream', function(remoteStream) {
                         video.srcObject = remoteStream;
                     });
+                   /* peer.on('call', function(call) {
+            destid = call.peer;
+            call.answer(window.stream);
+            call.on('stream', function(remoteStream) {
+                video.srcObject = remoteStream;
+                idtext.style.display = "none";
+                connectbutton.style.display = "block";
+                connectbutton.style.backgroundColor = "#0D2C3E";        
+        });*/
+    //});
         }); 
     }else{
         navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
                     video1.srcObject = stream;
-                    window.stream = stream; 
+                    //window.stream = stream; 
                     button.innerHTML = "Share the screen"; 
                     video1.className = "videoCamera";
                     shareScreen = true; 
-                    call = peer.call(destid.value, window.stream);
+                    console.log(destid); 
+                    call = peer.call(destid,stream);
                     call.on('stream', function(remoteStream) {
                         video.srcObject = remoteStream;
                     });
+            /*  peer.on('call', function(call) {
+            destid = call.peer;
+            call.answer(window.stream);
+            call.on('stream', function(remoteStream) {
+                video.srcObject = remoteStream;
+                idtext.style.display = "none";
+                connectbutton.style.display = "block";
+                connectbutton.style.backgroundColor = "#0D2C3E";        
+        });*/
+    //});
         }); 
     }
 }

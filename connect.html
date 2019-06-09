@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Connect</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/0.3.16/peer.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="../style.css">
+	<script>
+		 /*window.onbeforeunload = function(e) {
+		 			 var xmlHttp = new XMLHttpRequest();
+				     xmlHttp.onreadystatechange = function() { 
+       				 if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            				console.log(xmlHttp.responseText);  
+                    }
+  					xmlHttp.open("POST", "/deleteuser/"+id, true); // true for asynchronous 
+
+  					$(window).unload(function(){
+					    $.ajax({
+					        type: 'POST',
+					        url:  "/deleteuser/"+id,
+					        async:false,
+					        data: {key_leave:"289583002"}
+					    });
+					});
+                 return "are you sure !";
+        };*/
+	</script>
+</head>
+<body style = "background-color: #E8E8E8">
+<div id="connectiondiv" style = " display : none" >
+	<input id="destid" type="text" placeholder="Enter the Peer's ID ... "> <button id="connectbutton" onclick="go()">Connect</button>
+</div>
+<div id="switchdiv"><button class="connectbutton"   onclick="changeVideo() " >Start Streaming</button> </div> 
+<div id="connecteddiv">
+	<video id="peervid"  class = "videoCamera" align="center" autoplay muted></video>
+	<div id="conversationdiv">
+		<div id="senddiv"><input type="text" id="inputmessage"><button id="sendbutton">SEND</button></div>
+		<div id = "recievermsg"></div>
+	</div>
+	<video id="destvid"  class = "videoCamera" autoplay muted></video>
+</div>  
+</body>
+<script src="../connect.js">
+	
+</script>
+</html>
