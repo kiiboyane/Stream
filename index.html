@@ -71,7 +71,8 @@ connectIndex.addEventListener('click', () =>{
 		tagdata.push (tags[i].innerHTML); 
 	}
 	let  data = {
-		 tags : tagdata
+		 tags : tagdata , 
+     last : new Date() 
 	}
 	console.log(data);
   console.log(JSON.stringify(data));

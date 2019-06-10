@@ -9,6 +9,16 @@ which refers to the next middleware , in my case the error handler
 middleware . :P 
 */
 
+router.post('/IamConnected/:_id', function (req, res) {
+	//console.log("kkkkkkkkk");
+	//console.log(req.params._id);
+	let data = {last : new Date()}; 
+	//console.log(data); 
+      User.findByIdAndUpdate({_id : req.params._id}, data).then(function(){
+			              	  res.send("success"); 
+		                  });
+});
+
 
 // getting a list of current users 
 router.get('/users' , function(req , res , next){
@@ -57,6 +67,36 @@ router.post('/deleteuser/:_id' , function(req , res, next){
 	 	res.send(user); 
 	});
 }); 
+router.post('/IamConnected/:_id', function (req, res) {
+	console.log("kkkkkkkkk");
+	console.log(req.params._id);
+      User.findByIdAndUpdate({_id : req.params._id}, {last : new Date()}).then(function(){
+			              	  res.send(contest); 
+		                  });
+});
 
 
+function findlateusers(){
+	//console.log("hey");
+	 User.find({}).then(function(users){
+			  //res.send(users); 
+			  for (var i =    users.length - 1; i >= 0; i--) {
+			      
+			  	let retdate = users[i].last;
+				let current = new Date();
+				let difference = current - retdate  ; // difference in milliseconds
+
+				const MILLE_IN_MIN = 1000 * 60;
+				if (Math.floor(difference / MILLE_IN_MIN) >= 5) {
+    					console.log("Current user " + users[i]._id +" is more than 5 min disconnected " );
+    					 User.findOneAndRemove({_id :users[i]._id}).then(function(user){
+	 								console.log("deleted");  
+						});
+					}
+			  }
+	});
+}
+setInterval( function (){
+		findlateusers();
+}, 6000);
 module.exports = router; 

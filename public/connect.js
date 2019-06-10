@@ -242,6 +242,20 @@ function go() {
         });
 
 }
+function IamOn(){
+  console.log("/IamConnected/"+id);
+  var xmlHttp = new XMLHttpRequest();
+  xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            console.log(xmlHttp.responseText);  
+        }
+  xmlHttp.open("POST","/IamConnected/"+id, true); // true for asynchronous 
+  xmlHttp.send();
+}
+window.setInterval(function(){
+       IamOn();
+}, 6000);
+//setInterval(IamOn(), 5000);
 /* window.onbeforeunload = confirmExit;
   function confirmExit()
   {
