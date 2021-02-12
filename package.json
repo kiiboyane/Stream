@@ -24,7 +24,7 @@
     "fs": "0.0.1-security",
     "html2canvas": "^1.0.0-rc.3",
     "html2canvas-proxy": "^1.0.1",
-    "mongoose": "^5.5.14",
+    "mongoose": "^5.7.5",
     "nodemon": "^1.19.1",
     "path": "^0.12.7",
     "peer": "^0.2.10",
